@@ -68,7 +68,7 @@ class BournvitaMaker:
             temperature_callback()
         pass
 
-  def activate_bournvita_dispenser(self, dispenser_parameter="default_value"):
+    def activate_bournvita_dispenser(self, dispenser_parameter="default_value"):
         # Logic for Bournvita dispenser activation using AL with variable parameters
 
         rospy.loginfo("Activating the Bournvita dispenser!")
