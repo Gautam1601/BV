@@ -10,10 +10,9 @@ class StirringServer:
         self.server.start()
 
     def execute(self, goal):
-        # Implement your stirring logic here
         # ...
 
-        # Once the stirring is complete, set the result and finish the action
+        # Once the stirring is complete, Finish
         result = StirringResult()
         result.success = True
         self.server.set_succeeded(result)
