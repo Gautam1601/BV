@@ -83,21 +83,47 @@ class BournvitaMaker:
         self.stirring_client.wait_for_result()
 
 
-    def move_pan_to_pouring_position(self):
-        # Move Pan to pouring pos
+    def move_pan_to_pouring_position(self, position_x=0.0, position_y=0.0, position_z=0.0,
+                                  orientation_x=0.0, orientation_y=0.0, orientation_z=0.0, orientation_w=1.0):
+        rospy.loginfo("Moving the pan to the pouring position!")
+
+        goal = MoveGroupGoal()
+        goal.request = "plan_and_execute"
+        goal.group_name = "pan_group"
+
+        # Final Pos
+        goal.pose_goal.position.x = position_x
+        goal.pose_goal.position.y = position_y
+        goal.pose_goal.position.z = position_z
+        goal.pose_goal.orientation.x = orientation_x
+        goal.pose_goal.orientation.y = orientation_y
+        goal.pose_goal.orientation.z = orientation_z
+        goal.pose_goal.orientation.w = orientation_w
+    
+        self.moveit_client.send_goal(goal)
+        self.moveit_client.wait_for_result()
+    
+        rospy.loginfo("Pan moved to the pouring position!")
         pass
 
-    def activate_pouring_module(self):
-        # Activate the pouring module using AL
-        pouring_goal = PouringGoal()  # Define pouring goal
+    def activate_pouring_module(self, pouring_duration=5.0, pouring_speed=1.0):
+        rospy.loginfo("Activating the pouring module!")
+    
+        pouring_goal = PouringAction()
+        pouring_goal.duration = rospy.Duration(pouring_duration)
+        pouring_goal.speed = pouring_speed
+    
         self.pouring_client.send_goal(pouring_goal)
         self.pouring_client.wait_for_result()
+    
+        rospy.loginfo("Pouring module completed!")
+
 
 if __name__ == '__main__':
     try:
         bournvita_maker = BournvitaMaker()
         bournvita_maker.activate_heating_and_move_pan()
-        bournvita_maker.temperature_callback()  # Implement logic to check temperature
+        bournvita_maker.temperature_callback()
         bournvita_maker.activate_bournvita_dispenser()
         bournvita_maker.activate_stirring_module()
         bournvita_maker.move_pan_to_pouring_position()
