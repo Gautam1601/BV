@@ -10,7 +10,7 @@ class StirringServer:
         self.server.start()
 
     def execute(self, goal):
-        # ...
+        # Baaki hai 
 
         # Once the stirring is complete, Finish
         result = StirringResult()
