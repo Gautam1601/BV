@@ -1,5 +1,5 @@
 -- Dispenser not installed placeholder in place for now --
 
--- Stirring Action is setup for the Movement package Pouring not been created yet --
+-- Stirring Action is set up for the Movement package Pouring has not been created yet --
 
 -- Stirring Goal has not been issued-- 
