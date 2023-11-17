@@ -43,6 +43,8 @@ class BournvitaMaker:
         goal.pose_goal.orientation.y = 0.0
         goal.pose_goal.orientation.z = 0.0
         goal.pose_goal.orientation.w = 1.0
+
+        # Switch on the Heating device once the Pan has been placed
         
         rospy.loginfo("Switching on the heating device")
         self.heating_pub.publish(Empty())
