@@ -12,7 +12,7 @@ class StirringClient:
     def send_goal(self):
         goal = StirringGoal()
         # Stirring Goal para
-        # ...
+        # Para Def baaki 
 
         self.client.send_goal(goal)
         self.client.wait_for_result()
