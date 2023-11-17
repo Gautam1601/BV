@@ -29,6 +29,7 @@ class BournvitaMaker:
         self.pouring_client.wait_for_server()
 
     def activate_heating_and_move_pan(self):
+    if pan_in_position:
         rospy.loginfo("Moving the pan to the heat source!")
         
         goal = MoveGroupGoal()
@@ -48,6 +49,9 @@ class BournvitaMaker:
         
         rospy.loginfo("Switching on the heating device")
         self.heating_pub.publish(Empty())
+    
+    else:
+         rospy.logerr("Error: Pan is not on the Heating device or is not placed correctly!")
 
         
         pass
