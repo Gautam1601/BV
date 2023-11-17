@@ -51,9 +51,7 @@ class BournvitaMaker:
         self.heating_pub.publish(Empty())
     
     else:
-         rospy.logerr("Error: Pan is not on the Heating device or is not placed correctly!")
-
-        
+        rospy.logerr("Error: Pan is not on the Heating device or is not placed correctly!")
         pass
 
     def temperature_callback(self, temperature_msg):
@@ -65,14 +63,16 @@ class BournvitaMaker:
         # Error Case identification
         if current_temperature >= desired_temperature:
             rospy.loginfo("Hot enough. Proceeding to the next step!")
-            self.activate_bournvita_dispenser()  # If things go well
         else:
             rospy.loginfo("Not hot enough. Continue Heating!")
-
+            temperature_callback()
         pass
 
     def activate_bournvita_dispenser(self):
         # BV dispenser activation using AL
+        rospy.loginfo("Dispensing Bournvita!")
+        self.activate_bournvita_dispenser()
+        
         pass
 
     def activate_stirring_module(self):
@@ -82,18 +82,6 @@ class BournvitaMaker:
         self.stirring_client.send_goal(stirring_goal)
         self.stirring_client.wait_for_result()
 
-#    Optional parts 
-   
-    # def activate_sugar_dispenser(self):
-    #     # Activate the sugar dispenser using ActionLib
-    #     # Implementation depends on your specific robot and environment
-    #     pass
-
-    # def taste_check_module(self):
-    #     # Manual step, can be ignored in this automation script
-    #     pass
-    
-# With human influence ^
 
     def move_pan_to_pouring_position(self):
         # Move Pan to pouring pos
@@ -112,10 +100,6 @@ if __name__ == '__main__':
         bournvita_maker.temperature_callback()  # Implement logic to check temperature
         bournvita_maker.activate_bournvita_dispenser()
         bournvita_maker.activate_stirring_module()
-        
-        # bournvita_maker.activate_sugar_dispenser()
-        # bournvita_maker.taste_check_module()  # Ignoring for automation
-        
         bournvita_maker.move_pan_to_pouring_position()
         bournvita_maker.activate_pouring_module()
     except rospy.ROSInterruptException:
