@@ -6,7 +6,7 @@ from moveit_msgs.msg import MoveGroupAction, MoveGroupGoal
 from std_msgs.msg import String
 from std_msgs.msg import Empty
 from sensor_msgs.msg import Temperature 
-from Movement_msgs.msg import StirringAction, PouringAction 
+from Movement_msgs.msg import StirringAction, PouringAction, DispenserAction  
 
 class BournvitaMaker:
     def __init__(self):
@@ -68,11 +68,18 @@ class BournvitaMaker:
             temperature_callback()
         pass
 
-    def activate_bournvita_dispenser(self):
-        # BV dispenser activation using AL
-        rospy.loginfo("Dispensing Bournvita!")
-        self.activate_bournvita_dispenser()
-        
+  def activate_bournvita_dispenser(self, dispenser_parameter="default_value"):
+        # Logic for Bournvita dispenser activation using AL with variable parameters
+
+        rospy.loginfo("Activating the Bournvita dispenser!")
+
+        bournvita_goal = DispenserAction()
+        bournvita_goal.parameter = dispenser_parameter
+
+        self.dispenser_client.send_goal(bournvita_goal)
+        self.dispenser_client.wait_for_result()
+
+        rospy.loginfo("Bournvita dispenser activated with parameter: {}".format(dispenser_parameter))
         pass
 
     def activate_stirring_module(self):
