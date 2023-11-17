@@ -11,7 +11,7 @@ class StirringClient:
 
     def send_goal(self):
         goal = StirringGoal()
-        # Set your stirring goal parameters
+        # Stirring Goal para
         # ...
 
         self.client.send_goal(goal)
